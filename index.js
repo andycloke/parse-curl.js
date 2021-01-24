@@ -3,7 +3,6 @@ var words = require('shellwords')
 
 // TODO -F, --form
 // TODO --data-binary
-// TODO --data-urlencode
 // TODO -r, --range
 
 /**
@@ -30,7 +29,7 @@ module.exports = exports.default = function(s) {
         state = 'header'
         break;
 
-      case arg == '-d' || arg == '--data' || arg == '--data-ascii' || arg == '--data-raw':
+      case arg == '-d' || arg == '--data' || arg == '--data-ascii' || arg == '--data-raw' || arg == '--data-urlencode':
         state = 'data'
         break;
 
