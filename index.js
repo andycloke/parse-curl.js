@@ -13,6 +13,7 @@ module.exports = exports.default = function(s) {
   if (0 != s.indexOf('curl ')) return
   var args = rewrite(words.split(s))
   var out = { method: 'GET', header: {} }
+  var methodArgFound = false;
   var state = ''
 
   args.forEach(function(arg){
@@ -65,6 +66,7 @@ module.exports = exports.default = function(s) {
             state = ''
             break;
           case 'data':
+            if ((out.method == 'GET' || out.method == 'HEAD) && !methodArgFound) out.method = 'POST'
             out.header['Content-Type'] = out.header['Content-Type'] || 'application/x-www-form-urlencoded'
             out.body = out.body
               ? out.body + '&' + arg
@@ -76,6 +78,7 @@ module.exports = exports.default = function(s) {
             state = ''
             break;
           case 'method':
+            methodArgFound = true;
             out.method = arg
             state = ''
             break;
